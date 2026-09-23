@@ -121,7 +121,7 @@ func deviceByName(t *testing.T, eps []observer.Endpoint, name string) *Device {
 // happen to carry tags are ever matched. This is a regression test for that.
 func TestListEndpointsTagsAreNeverNil(t *testing.T) {
 	srv := serve(t, func(w http.ResponseWriter, _ *http.Request) {
-		fmt.Fprint(w, devicesPage("", deviceNoTags, deviceBare))
+		_, _ = fmt.Fprint(w, devicesPage("", deviceNoTags, deviceBare))
 	})
 
 	eps := newTestLister(srv).ListEndpoints()
@@ -147,7 +147,7 @@ func TestListEndpointsTagsAreNeverNil(t *testing.T) {
 
 func TestListEndpointsTagsArePopulated(t *testing.T) {
 	srv := serve(t, func(w http.ResponseWriter, _ *http.Request) {
-		fmt.Fprint(w, devicesPage("", deviceFull))
+		_, _ = fmt.Fprint(w, devicesPage("", deviceFull))
 	})
 
 	d := deviceByName(t, newTestLister(srv).ListEndpoints(), "sw-01")
@@ -179,7 +179,7 @@ func TestListEndpointsReturnsNilOnHTTPError(t *testing.T) {
 
 func TestListEndpointsReturnsNilOnMalformedJSON(t *testing.T) {
 	srv := serve(t, func(w http.ResponseWriter, _ *http.Request) {
-		fmt.Fprint(w, `{"next": null, "results":`)
+		_, _ = fmt.Fprint(w, `{"next": null, "results":`)
 	})
 
 	if eps := newTestLister(srv).ListEndpoints(); eps != nil {
@@ -189,7 +189,7 @@ func TestListEndpointsReturnsNilOnMalformedJSON(t *testing.T) {
 
 func TestListEndpointsReturnsNilWhenNetboxHasNoDevices(t *testing.T) {
 	srv := serve(t, func(w http.ResponseWriter, _ *http.Request) {
-		fmt.Fprint(w, devicesPage(""))
+		_, _ = fmt.Fprint(w, devicesPage(""))
 	})
 
 	if eps := newTestLister(srv).ListEndpoints(); eps != nil {
@@ -201,7 +201,7 @@ func TestListEndpointsReturnsNilWhenNetboxHasNoDevices(t *testing.T) {
 
 func TestListEndpointsMapsAllFields(t *testing.T) {
 	srv := serve(t, func(w http.ResponseWriter, _ *http.Request) {
-		fmt.Fprint(w, devicesPage("", deviceFull))
+		_, _ = fmt.Fprint(w, devicesPage("", deviceFull))
 	})
 
 	eps := newTestLister(srv).ListEndpoints()
@@ -241,7 +241,7 @@ func TestListEndpointsMapsAllFields(t *testing.T) {
 // none of them must still produce an endpoint rather than panic.
 func TestListEndpointsToleratesMissingRelations(t *testing.T) {
 	srv := serve(t, func(w http.ResponseWriter, _ *http.Request) {
-		fmt.Fprint(w, devicesPage("", deviceBare))
+		_, _ = fmt.Fprint(w, devicesPage("", deviceBare))
 	})
 
 	d := deviceByName(t, newTestLister(srv).ListEndpoints(), "sw-05")
@@ -262,7 +262,7 @@ func TestListEndpointsToleratesMissingRelations(t *testing.T) {
 
 func TestListEndpointsSkipsUnusableDevices(t *testing.T) {
 	srv := serve(t, func(w http.ResponseWriter, _ *http.Request) {
-		fmt.Fprint(w, devicesPage("", deviceFull, deviceNoIP, deviceNoName))
+		_, _ = fmt.Fprint(w, devicesPage("", deviceFull, deviceNoIP, deviceNoName))
 	})
 
 	eps := newTestLister(srv).ListEndpoints()
@@ -280,7 +280,7 @@ func TestListEndpointsSendsTokenAsAuthorizationHeader(t *testing.T) {
 	var got string
 	srv := serve(t, func(w http.ResponseWriter, r *http.Request) {
 		got = r.Header.Get("Authorization")
-		fmt.Fprint(w, devicesPage("", deviceFull))
+		_, _ = fmt.Fprint(w, devicesPage("", deviceFull))
 	})
 
 	newTestLister(srv).ListEndpoints()
@@ -293,7 +293,7 @@ func TestListEndpointsQueriesEveryConfiguredStatus(t *testing.T) {
 	var seen []string
 	srv := serve(t, func(w http.ResponseWriter, r *http.Request) {
 		seen = append(seen, r.URL.Query().Get("status"))
-		fmt.Fprint(w, devicesPage("", deviceFull))
+		_, _ = fmt.Fprint(w, devicesPage("", deviceFull))
 	})
 
 	newTestLister(srv, "active", "failed", "offline").ListEndpoints()
@@ -314,7 +314,7 @@ func TestListEndpointsTrimsTrailingSlashFromEndpoint(t *testing.T) {
 	var path string
 	srv := serve(t, func(w http.ResponseWriter, r *http.Request) {
 		path = r.URL.Path
-		fmt.Fprint(w, devicesPage("", deviceFull))
+		_, _ = fmt.Fprint(w, devicesPage("", deviceFull))
 	})
 
 	l := newTestLister(srv)
@@ -334,10 +334,10 @@ func TestListEndpointsFollowsPagination(t *testing.T) {
 	srv = serve(t, func(w http.ResponseWriter, _ *http.Request) {
 		hits++
 		if hits == 1 {
-			fmt.Fprint(w, devicesPage(srv.URL+"/api/dcim/devices/?page=2", deviceFull))
+			_, _ = fmt.Fprint(w, devicesPage(srv.URL+"/api/dcim/devices/?page=2", deviceFull))
 			return
 		}
-		fmt.Fprint(w, devicesPage("", deviceNoTags))
+		_, _ = fmt.Fprint(w, devicesPage("", deviceNoTags))
 	})
 
 	eps := newTestLister(srv).ListEndpoints()
@@ -356,7 +356,7 @@ func TestListEndpointsStopsPagingAtTheBound(t *testing.T) {
 	var hits int
 	srv = serve(t, func(w http.ResponseWriter, _ *http.Request) {
 		hits++
-		fmt.Fprint(w, devicesPage(srv.URL+"/api/dcim/devices/?page=next", deviceFull))
+		_, _ = fmt.Fprint(w, devicesPage(srv.URL+"/api/dcim/devices/?page=next", deviceFull))
 	})
 
 	newTestLister(srv).ListEndpoints()
