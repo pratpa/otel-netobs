@@ -2,7 +2,7 @@
 # across every module found under extension/ and receiver/.
 
 GOCMD ?= go
-MODULES := $(shell find extension receiver -name go.mod -exec dirname {} \; 2>/dev/null | sort)
+MODULES := $(shell find . -name go.mod -not -path './.git/*' -exec dirname {} \; 2>/dev/null | sed 's|^\./||' | sort)
 
 .DEFAULT_GOAL := test
 
