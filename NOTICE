@@ -1,0 +1,12 @@
+OpenTelemetry Collector components for network observability
+Copyright Qualys, Inc.
+
+This product includes software developed at Qualys, Inc.
+
+Portions of this software are derived from the OpenTelemetry Collector
+and the OpenTelemetry Collector Contrib distribution, which are
+Copyright The OpenTelemetry Authors and licensed under the Apache
+License, Version 2.0.
+
+  https://github.com/open-telemetry/opentelemetry-collector
+  https://github.com/open-telemetry/opentelemetry-collector-contrib

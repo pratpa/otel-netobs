@@ -1,0 +1,9 @@
+type: netbox_observer
+
+status:
+  class: extension
+  stability:
+    development: [extension]
+  distributions: []
+  codeowners:
+    active: [pratpa]

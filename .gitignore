@@ -1,0 +1,24 @@
+# Build output
+/bin/
+/dist/
+*.exe
+*.test
+*.out
+
+# Go workspace sum file (the workspace itself is committed)
+go.work.sum
+
+# Coverage
+coverage.txt
+coverage.html
+
+# Editor / OS
+.idea/
+.vscode/
+.DS_Store
+*.swp
+
+# Never commit secrets. Tokens and SNMP communities are supplied at runtime
+# through ${env:...} and must not appear in this repository.
+*.env
+.env
