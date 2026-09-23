@@ -73,9 +73,6 @@ jobs:
     name: Lint
     needs: discover
     runs-on: ubuntu-latest
-    # Advisory for now: lint findings are reported but do not fail the build.
-    # Drop this once the first clean run lands.
-    continue-on-error: true
     strategy:
       fail-fast: false
       matrix:
