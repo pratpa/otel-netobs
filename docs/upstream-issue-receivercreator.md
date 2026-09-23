@@ -119,16 +119,10 @@ Happy to open a PR for whichever direction maintainers prefer.
 
 ---
 
-## Notes before filing
+## Notes
 
-- Nothing in this issue discloses anything proprietary. It describes a
-  limitation in upstream code and names NetBox only as a generic example.
-  It can be filed **before** any employer approval, and before the
-  components repository is public.
-- Opening an *issue* requires no CLA. A *pull request* does, so if the
-  outcome is "send a PR", sign EasyCLA at that point — individual route is
-  fine for a fix to upstream code written on your own time.
-- Consider raising it in `#otel-collector-dev` on CNCF Slack once filed.
-  Component issues move faster with a maintainer already aware of them, and
-  this is also the natural way to start the sponsor conversation for
-  `netboxobserver` later — without asking for anything yet.
+- Opening an issue requires no CLA. A pull request does, so if the outcome is
+  "send a PR", sign the Linux Foundation CLA at that point — the bot prompts
+  from the PR itself.
+- Worth raising in `#otel-collector` on CNCF Slack once filed. Component
+  issues move faster when a maintainer is already aware of them.

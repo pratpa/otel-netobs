@@ -20,9 +20,9 @@ PAN-OS — and are maintained here while upstream donation to
 
 The Collector's dynamic-configuration story is built for cloud-native
 estates. Every observer shipped in contrib — `k8sobserver`, `dockerobserver`,
-`ecsobserver`, `ecstaskobserver`, `hostobserver` — discovers workloads on a
-scheduler or a local host. Nothing discovers *physical network devices from a
-source of truth*.
+`ecsobserver`, `cfgardenobserver`, `hostobserver` — discovers workloads on a
+container scheduler or a local host. Nothing discovers *physical network
+devices from a source of truth*.
 
 That leaves operators of physical estates generating static collector
 configuration from scripts, which is exactly the toil the `receiver_creator`

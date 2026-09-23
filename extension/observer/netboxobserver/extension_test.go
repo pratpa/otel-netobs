@@ -24,7 +24,7 @@ const (
 		"serial": "ABC123",
 		"status": {"value": "active"},
 		"primary_ip4": {"address": "10.1.1.1/24"},
-		"site": {"slug": "sjc01"},
+		"site": {"slug": "dc1"},
 		"role": {"slug": "access-switch"},
 		"platform": {"slug": "nxos"},
 		"device_type": {"model": "N9K-C93180YC-EX"},
@@ -226,7 +226,7 @@ func TestListEndpointsMapsAllFields(t *testing.T) {
 		{"Serial", d.Serial, "ABC123"},
 		{"Status", d.Status, "active"},
 		{"IP", d.IP, "10.1.1.1"},
-		{"Site", d.Site, "sjc01"},
+		{"Site", d.Site, "dc1"},
 		{"Role", d.Role, "access-switch"},
 		{"Platform", d.Platform, "nxos"},
 		{"Model", d.Model, "N9K-C93180YC-EX"},
@@ -369,14 +369,14 @@ func TestListEndpointsStopsPagingAtTheBound(t *testing.T) {
 
 func TestDeviceEnvExposesEveryField(t *testing.T) {
 	d := &Device{
-		Name: "sw-01", Platform: "nxos", Site: "sjc01", Role: "access-switch",
+		Name: "sw-01", Platform: "nxos", Site: "dc1", Role: "access-switch",
 		Model: "N9K", Serial: "ABC123", Status: "active", IP: "10.1.1.1",
 		Tags: []string{"managed"},
 	}
 	env := d.Env()
 
 	for k, want := range map[string]string{
-		"name": "sw-01", "platform": "nxos", "site": "sjc01",
+		"name": "sw-01", "platform": "nxos", "site": "dc1",
 		"role": "access-switch", "model": "N9K", "serial": "ABC123",
 		"status": "active", "ip": "10.1.1.1",
 	} {

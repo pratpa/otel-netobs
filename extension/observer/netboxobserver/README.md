@@ -11,10 +11,12 @@ An [observer] that discovers network devices from [NetBox] and reports each one
 as an endpoint, so that [`receiver_creator`][rc] can instantiate that device's
 receivers from a static per-platform template.
 
-Every observer shipped in `opentelemetry-collector-contrib` discovers workloads
-on a container scheduler or the local host. This one discovers physical devices
-from a source of truth, which makes `receiver_creator`'s add/remove lifecycle
-available to network estates: a device added to NetBox starts being collected
+Every observer shipped in `opentelemetry-collector-contrib` — `k8sobserver`,
+`dockerobserver`, `ecsobserver`, `cfgardenobserver`, `hostobserver` —
+discovers workloads on a container scheduler or the local host. This one
+discovers physical devices from a source of truth, which makes
+`receiver_creator`'s add/remove lifecycle available to network estates: a
+device added to NetBox starts being collected
 within the refresh interval, and a device removed stops — with no configuration
 regeneration and no collector restart.
 
